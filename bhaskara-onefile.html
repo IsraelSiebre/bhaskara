@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Bhaskara</title>
+</head>
+<body>
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(22, 22, 22);
+            color: white
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        #input-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+        }
+
+        input{
+            max-width: 200px;
+            margin: 10px 20px;
+        }
+
+        button{
+            margin: 25px 20px;
+            max-width: 150px;
+        }
+
+        #button-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+
+        @media screen and (max-width : 768px){
+            #button-container{ 
+                width: 80%;
+            }
+            #result{
+                flex-direction: column; 
+                        margin-top: 0;
+            }
+        }
+
+        #result{
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            width: 80%;
+        }
+
+        .container-result{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 255, 255, 0.705);
+            width: 90%;
+            height: 50px;
+            margin: 10px 10px; 
+            max-width: 1000px;
+            border-radius: 7px;   
+
+        }
+
+        .container-result span{
+            width: 90%;
+            text-align: center;
+            padding: 10px;
+            font-size: medium;
+        }
+
+        .hide{
+            visibility: hidden;
+        }
+    </style>
+    <h1>Calculadora com Bhaskara</h1>
+    <div id="input-container">
+        <input type="number" placeholder="a" name="a" id="a" >
+        <input type="number" placeholder="b" name="b" id="b" >
+        <input type="number" placeholder="c" name="c" id="c" >
+    </div>
+    <div id="button-container">
+        <button id="bt-calcular" onclick=Calcular()>Calcular</button>
+        <button id="bt-limpar" onclick=Limpar()>Limpar</button>
+    </div>
+    <div id="result" class="hide">
+        <div class="container-result" id="div-juros"><span>Delta: <br><span id="delta"></span></span></div>
+        <div class="container-result" id="div-total"><span>X1: <br><span id="x1"></span></span></div>
+        <div class="container-result" id="div-total"><span>X2: <br><span id="x2"></span></span></div>
+    </div>
+    <script>
+        const a = document.querySelector("#a");
+        const b = document.querySelector("#b");
+        const c = document.querySelector("#c");
+
+        function Calcular(){
+            if (a.value != '' && b.value != '' && c.value != '') {
+
+                let delta = (b.value * b.value) - 4 *a.value * c.value; 
+                let x1 = (-b.value + Math.sqrt(delta))/(2 * a.value);
+                let x2 = (-b.value - Math.sqrt(delta)) / (2 * a.value);
+                    
+                document.querySelector("#delta").innerHTML = delta;
+                document.querySelector("#x1").innerHTML = x1;
+                document.querySelector("#x2").innerHTML = x2;
+
+                document.querySelector("#result").classList.remove("hide");
+
+            } else {
+                alert("Preencha todos os campos!")
+            }
+        }
+
+        function Limpar(){
+            a.value = "";
+            b.value = "";
+            c.value = "";
+            document.querySelector("#result").classList.add("hide");
+        }
+    </script>
+</body>
+</html>
